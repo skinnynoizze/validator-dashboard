@@ -136,6 +136,18 @@ if [ ! -z "${CONTAINER_ID}" ]; then
   INTERNALIP_DEFAULT=$(echo $ENV_VARS | grep -oP 'INT_IP=\K[^ ]+')
   SHMEXT_DEFAULT=$(echo $ENV_VARS | grep -oP 'SHMEXT=\K[^ ]+')
   SHMINT_DEFAULT=$(echo $ENV_VARS | grep -oP 'SHMINT=\K[^ ]+')
+elif [ -f .shardeum/.env ]; then
+  echo "Existing .shardeum/.env file found. Reading settings from file."
+
+  # Read the .shardeum/.env file into a variable. Use default installer directory if it exists.
+  ENV_VARS=$(cat .shardeum/.env)
+
+  # UPDATE DEFAULT VALUES WITH SAVED VALUES
+  DASHPORT_DEFAULT=$(echo $ENV_VARS | grep -oP 'DASHPORT=\K[^ ]+')
+  EXTERNALIP_DEFAULT=$(echo $ENV_VARS | grep -oP 'EXT_IP=\K[^ ]+')
+  INTERNALIP_DEFAULT=$(echo $ENV_VARS | grep -oP 'INT_IP=\K[^ ]+')
+  SHMEXT_DEFAULT=$(echo $ENV_VARS | grep -oP 'SHMEXT=\K[^ ]+')
+  SHMINT_DEFAULT=$(echo $ENV_VARS | grep -oP 'SHMINT=\K[^ ]+')
 fi
 
 cat << EOF
