@@ -9,7 +9,7 @@ Thanks for running a node and helping to make Shardeum better.
 By running this installer, you agree to allow the Shardeum team to collect this data. (Y/n)?: " WARNING_AGREE
 WARNING_AGREE=${WARNING_AGREE:-y}
 
-if [ $WARNING_AGREE != "y" ];
+if [[ ! "${WARNING_AGREE}" =~ ^[yY] ]];
 then
   echo "Diagnostic data collection agreement not accepted. Exiting installer."
   exit
@@ -179,7 +179,7 @@ else
   CHANGEPASSWORD="y"
 fi
 
-if [ "$CHANGEPASSWORD" == "y" ]; then
+if [[ "${CHANGEPASSWORD}" =~ ^[yY] ]]; then
   unset CHARCOUNT
   echo -n "Set the password to access the Dashboard: "
   CHARCOUNT=0
@@ -419,7 +419,7 @@ if [ -f secrets.json ]; then
 fi
 
 #Do not indent
-if [ $RUNDASHBOARD = "y" ]
+if [[ "${RUNDASHBOARD}" =~ ^[yY] ]]
 then
 cat <<EOF
   To use the Web Dashboard:
