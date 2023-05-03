@@ -265,9 +265,10 @@ if [ "$CHANGEPASSWORD" == "y" ]; then
       DASHPASS+="$CHAR"
     fi
   done
-
+  echo "$DASHPASS after entered"
   # Hash the password using the fallback mechanism
   DASHPASS=$(hash_password "$DASHPASS")
+  echo "$DASHPASS after hashed"
 else
   DASHPASS=$PREVIOUS_PASSWORD
   if ! [[ $DASHPASS =~ ^[0-9a-f]{64}$ ]]; then
