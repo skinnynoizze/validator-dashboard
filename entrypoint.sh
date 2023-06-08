@@ -10,7 +10,7 @@ npm i -g pm2
 
 # Pull latest versions of the CLI and GUI
 
-git clone https://gitlab.com/shardeum/validator/cli.git
+git clone -b fix/settingPasswordFromCLI https://gitlab.com/shardeum/validator/cli.git
 
 echo "Install the CLI"
 cd cli
