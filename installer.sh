@@ -411,9 +411,10 @@ done
 
 read -p "What base directory should the node use (defaults to ~/.shardeum): " NODEHOME
 
-# Validate and re-prompt for a valid directory name if spaces are present
-while [[ "$NODEHOME" = *" "* ]]; do
-  echo "error: The directory name cannot contain spaces."
+#reprompt if not alphanumeric characters, tilde, foward slash, underscore, period, and hyphen
+while [[ ! "$NODEHOME" =~ ^[[:alnum:]_.~/-]+$ ]]; do
+  echo "error: The directory name contains invalid characters."
+  echo "Allowed characters are alphanumeric characters, tilde, foward slash, underscore, period, and hyphen."
   read -p "Please enter a valid base directory (defaults to ~/.shardeum): " NODEHOME
 done
 
