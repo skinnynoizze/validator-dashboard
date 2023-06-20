@@ -410,6 +410,13 @@ while :; do
 done
 
 read -p "What base directory should the node use (defaults to ~/.shardeum): " NODEHOME
+
+# Validate and re-prompt for a valid directory name if spaces are present
+while [[ "$NODEHOME" = *" "* ]]; do
+  echo "error: The directory name cannot contain spaces."
+  read -p "Please enter a valid base directory (defaults to ~/.shardeum): " NODEHOME
+done
+
 NODEHOME=${NODEHOME:-~/.shardeum}
 NODEHOME="${NODEHOME/#\~/$HOME}" # support ~ in path
 
