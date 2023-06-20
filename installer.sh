@@ -411,14 +411,23 @@ done
 
 read -p "What base directory should the node use (defaults to ~/.shardeum): " NODEHOME
 
-#reprompt if not alphanumeric characters, tilde, foward slash, underscore, period, and hyphen
+# Set default value if NODEHOME is empty
+NODEHOME=${NODEHOME:-~/.shardeum}
+
+# Reprompt if not alphanumeric characters, tilde, forward slash, underscore, period, or hyphen
 while [[ ! "$NODEHOME" =~ ^[[:alnum:]_.~/-]+$ ]]; do
   echo "error: The directory name contains invalid characters."
-  echo "Allowed characters are alphanumeric characters, tilde, foward slash, underscore, period, and hyphen."
-  read -p "Please enter a valid base directory (defaults to ~/.shardeum): " NODEHOME
+  echo "Allowed characters are alphanumeric characters, tilde, forward slash, underscore, period, and hyphen."
+  read -p "Please enter a valid base directory (defaults to ~/.shardeum, press Enter for default): " NODEHOME
+
+  # Set default value if NODEHOME is empty
+  NODEHOME=${NODEHOME:-~/.shardeum}
 done
 
-NODEHOME=${NODEHOME:-~/.shardeum}
+# Echo the final directory used
+echo "The base directory is set to: $NODEHOME"
+
+# Replace leading tilde (~) with the actual home directory path
 NODEHOME="${NODEHOME/#\~/$HOME}" # support ~ in path
 
 #APPSEEDLIST="archiver-sphinx.shardeum.org"
