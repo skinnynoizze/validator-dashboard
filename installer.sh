@@ -409,26 +409,36 @@ while :; do
   fi
 done
 
-read -p "What base directory should the node use (defaults to ~/.shardeum): " NODEHOME
+read -p "What base directory should the node use (defaults to ~/.shardeum, press Enter for default): " input
 
-# Set default value if NODEHOME is empty
-NODEHOME=${NODEHOME:-~/.shardeum}
+# Set default value if input is empty
+input=${input:-~/.shardeum}
 
-# Reprompt if not alphanumeric characters, tilde, forward slash, underscore, period, or hyphen
-while [[ ! "$NODEHOME" =~ ^[[:alnum:]_.~/-]+$ ]]; do
-  echo "error: The directory name contains invalid characters."
-  echo "Allowed characters are alphanumeric characters, tilde, forward slash, underscore, period, and hyphen."
-  read -p "Please enter a valid base directory (defaults to ~/.shardeum, press Enter for default): " NODEHOME
+# Check if input starts with "/" or "~/", if not, add "~/"
+if [[ ! $input =~ ^(/|~\/) ]]; then
+  input="~/$input"
+fi
 
-  # Set default value if NODEHOME is empty
-  NODEHOME=${NODEHOME:-~/.shardeum}
+# Reprompt if not alphanumeric characters, tilde, forward slash, underscore, period, hyphen, or contains spaces
+while [[ ! $input =~ ^[[:alnum:]_.~/-]+$ || $input =~ .*[\ ].* ]]; do
+  read -p "Error: The directory name contains invalid characters or spaces.
+Allowed characters are alphanumeric characters, tilde, forward slash, underscore, period, and hyphen.
+Please enter a valid base directory (defaults to ~/.shardeum, press Enter for default): " input
+
+  # Check if input starts with "/" or "~/", if not, add "~/"
+  if [[ ! $input =~ ^(/|~\/) ]]; then
+    input="~/$input"
+  fi
 done
 
+# Remove spaces from the input
+input=${input// /}
+
 # Echo the final directory used
-echo "The base directory is set to: $NODEHOME"
+echo "The base directory is set to: $input"
 
 # Replace leading tilde (~) with the actual home directory path
-NODEHOME="${NODEHOME/#\~/$HOME}" # support ~ in path
+NODEHOME="${input/#\~/$HOME}" # support ~ in path
 
 #APPSEEDLIST="archiver-sphinx.shardeum.org"
 #APPMONITOR="monitor-sphinx.shardeum.org"
