@@ -409,7 +409,7 @@ while :; do
   fi
 done
 
-read -p "What base directory should the node use (defaults to ~/.shardeum, press Enter for default): " input
+read -p "What base directory should the node use (default ~/.shardeum): " input
 
 # Set default value if input is empty
 input=${input:-~/.shardeum}
@@ -423,7 +423,7 @@ fi
 while [[ ! $input =~ ^[[:alnum:]_.~/-]+$ || $input =~ .*[\ ].* ]]; do
   read -p "Error: The directory name contains invalid characters or spaces.
 Allowed characters are alphanumeric characters, tilde, forward slash, underscore, period, and hyphen.
-Please enter a valid base directory (defaults to ~/.shardeum, press Enter for default): " input
+Please enter a valid base directory (default ~/.shardeum): " input
 
   # Check if input starts with "/" or "~/", if not, add "~/"
   if [[ ! $input =~ ^(/|~\/) ]]; then
