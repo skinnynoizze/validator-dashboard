@@ -552,10 +552,10 @@ LOCALLANIP=${LOCALLANIP}
 SHMEXT=${SHMEXT}
 SHMINT=${SHMINT}
 RPC_SERVER_URL=${RPC_SERVER_URL}
-baselineNodes=160
-minNodes=160
+minNodes=640
+baselineNodes=640
 maxNodes=1100
-nodesPerConsensusGroup=32
+nodesPerConsensusGroup=128
 EOL
 
 cat <<EOF
